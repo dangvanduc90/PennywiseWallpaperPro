@@ -1,5 +1,6 @@
 package com.pennywisewallpaper.artpennywisewallpapershd;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -39,16 +40,19 @@ public class PreviewImageActivity extends AppCompatActivity implements Connectiv
     ImageView ivPreviewImage;
     private String path;
     private String linkOnline;
+    private ObjectImage objectImage;
+
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview_image);
-        ObjectImage objectImage = (ObjectImage) getIntent().getExtras().getSerializable(OBJECT_IMAGE);
+        objectImage = (ObjectImage) getIntent().getExtras().getSerializable(OBJECT_IMAGE);
         final String imageSource = objectImage.getImgSourc();
 
         initView();
-        
+
         if (objectImage.isInternet()) {
             new ParseImageHome(this, new ParseImageHome.LoadImage() {
                 @Override
@@ -70,7 +74,7 @@ public class PreviewImageActivity extends AppCompatActivity implements Connectiv
             @Override
             public void onClick(View view) {
                 if (!TextUtils.isEmpty(path)) {
-                    setWallpaperImg(path, false);
+                    setWallpaperImg(path, objectImage.isInternet());
                 } else {
                     if (checkConnection()) {
                         isDownloadFile();
@@ -83,9 +87,9 @@ public class PreviewImageActivity extends AppCompatActivity implements Connectiv
     private void setWallpaperImg(String pathImg, boolean isOnline) {
         try {
             Bitmap bitmap = null;
-            if (isOnline){
+            if (isOnline) {
                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-                bitmap = BitmapFactory.decodeFile(pathImg,bmOptions);
+                bitmap = BitmapFactory.decodeFile(pathImg, bmOptions);
             } else {
                 bitmap = BitmapFactory.decodeStream(getAssets().open(pathImg));
             }
@@ -97,23 +101,32 @@ public class PreviewImageActivity extends AppCompatActivity implements Connectiv
     }
 
     private void isDownloadFile() {
+        dialog = new ProgressDialog(this); // this = YourActivity
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage("Loading. Please wait...");
+        dialog.setIndeterminate(true);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
         File mFile = new File(FILE_FOLDE + FOLDE_NAME +
                 File.separator + System.currentTimeMillis() + FOLDE_NAME + JPG);
         Ion.with(PreviewImageActivity.this)
-            .load(linkOnline)
-            .write(mFile)
-            .setCallback(new FutureCallback<File>() {
-                @Override
-                public void onCompleted(Exception e, File file) {
-                    if (e == null) {
-                        path = file.getAbsolutePath();
-                        setWallpaperImg(path, true);
-                    } else {
-                        Toast.makeText(PreviewImageActivity.this,
-                                "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                .load(linkOnline)
+                .progressDialog(dialog)
+                .write(mFile)
+                .setCallback(new FutureCallback<File>() {
+                    @Override
+                    public void onCompleted(Exception e, File file) {
+                        if (e == null) {
+                            path = file.getAbsolutePath();
+                            setWallpaperImg(path, objectImage.isInternet());
+                        } else {
+                            Toast.makeText(PreviewImageActivity.this,
+                                    "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                        dialog.dismiss();
                     }
-                }
-            });
+                });
     }
 
     // Method to manually check connection status
