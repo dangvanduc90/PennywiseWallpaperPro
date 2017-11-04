@@ -54,7 +54,7 @@ public class GridViewAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         try {
-            Glide.with(mContext).load(ASSEST_URI+arrImg.get(i).getImgThumb()).centerCrop().into(viewHolder.gvRow);
+            Glide.with(mContext).load(ASSEST_URI + arrImg.get(i).getImgThumb()).centerCrop().into(viewHolder.gvRow);
         } catch (Exception e) {
             e.printStackTrace();
         }

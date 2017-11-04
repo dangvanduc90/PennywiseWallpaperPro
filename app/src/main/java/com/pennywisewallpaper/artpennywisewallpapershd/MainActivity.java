@@ -7,12 +7,13 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView;
+import com.pennywisewallpaper.artpennywisewallpapershd.Utils.HtmlImageHome;
 import com.pennywisewallpaper.artpennywisewallpapershd.adapter.GridViewAdapter;
 import com.pennywisewallpaper.artpennywisewallpapershd.object.ObjectImage;
 
 import java.util.ArrayList;
 
-import static com.pennywisewallpaper.artpennywisewallpapershd.Utils.CommonVL.IMAGE_SOURCE;
+import static com.pennywisewallpaper.artpennywisewallpapershd.Utils.CommonVL.OBJECT_IMAGE;
 
 
 public class MainActivity extends Activity {
@@ -28,8 +29,17 @@ public class MainActivity extends Activity {
 
         mStringsImage = new ArrayList<>();
         for (int i = 1; i <= 99; i++) {
-            mStringsImage.add(new ObjectImage(i + ".jpg.tbn",i + ".jpg"));
+            mStringsImage.add(new ObjectImage(i + ".jpg.tbn", i + ".jpg", false));
         }
+
+        new HtmlImageHome(new HtmlImageHome.ShareArrWallpaper() {
+            @Override
+            public void WallArrr(ArrayList<ObjectImage> arrImg) {
+                mStringsImage.addAll(arrImg);
+                mAdapter.notifyDataSetChanged();
+            }
+        }, this).execute("https://wall.alphacoders.com/search.php?search=pennywise");
+
         mAdapter = new GridViewAdapter(this, R.layout.row_gridview, mStringsImage);
         mGridView = (ExpandableHeightGridView) findViewById(R.id.gv_img);
         mGridView.setAdapter(mAdapter);
@@ -40,7 +50,9 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ObjectImage mObjectImage = (ObjectImage) adapterView.getAdapter().getItem(i);
                 Intent intent = new Intent(MainActivity.this, PreviewImageActivity.class);
-                intent.putExtra(IMAGE_SOURCE, mObjectImage.getImgSourc());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(OBJECT_IMAGE, mObjectImage);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
