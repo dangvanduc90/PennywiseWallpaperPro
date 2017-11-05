@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">libhopebasepro</string>
+    <string name="text_permiss">In android 5.0 or above, you must permit usage data access for application so that you can use application feature.</string>
+
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">LibServerModule</string>
+    <string name="no_network">It looks like your internet connection is off. Please turn it on and try again!</string>
+    <string name="server_error">Server maintenance please come back later!</string>
+</resources>

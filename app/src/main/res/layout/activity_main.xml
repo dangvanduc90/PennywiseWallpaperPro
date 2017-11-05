@@ -1,9 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pennywisewallpaperpro.pennywisewallpaper.artpennywisewallpapershd.MainActivity">
+    tools:context=".MainActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -11,34 +12,42 @@
         android:scaleType="centerCrop"
         android:src="@drawable/nen" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:scrollbars="none">
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:background="@android:color/transparent"
+            android:scrollbars="none">
 
-            <ImageView
-                android:id="@+id/imageView"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/banner" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView
-                android:id="@+id/gv_img"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:listSelector="@android:color/transparent"
-                android:numColumns="3"
-                android:scrollbars="none" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/banner" />
 
-        </LinearLayout>
+                <com.github.paolorotolo.expandableheightlistview.ExpandableHeightGridView
+                    android:id="@+id/gv_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="3"
+                    android:scrollbars="none" />
 
-    </ScrollView>
+            </LinearLayout>
 
+        </ScrollView>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/ad_view"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id" />
 </RelativeLayout>

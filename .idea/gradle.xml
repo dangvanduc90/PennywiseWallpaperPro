@@ -8,7 +8,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/DialogRate" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/libhopebasepro" />
+            <option value="$PROJECT_DIR$/libservermodule" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

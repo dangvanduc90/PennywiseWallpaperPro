@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DialogRate</string>
+    <string name="rate">Please go to the Play Store and rate your 5 favorite apps!</string>
+    <string name="dialog_rate">Rate</string>
+    <string name="dialog_late">Late</string>
+    <string name="dialog_share">Share</string>
+    <string name="bottom_dialog_lib_cancel">CANCEL</string>
+</resources>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "977898722375",
+    "firebase_url": "https://pennywisewallpaperpro.firebaseio.com",
+    "project_id": "pennywisewallpaperpro",
+    "storage_bucket": "pennywisewallpaperpro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:977898722375:android:617aaff9dd1ecfd7",
+        "android_client_info": {
+          "package_name": "com.module.libservermodule"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "977898722375-kvh1i0q5fp0p9vjp14m3pjlods3h28k8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmOS6y02rZcoKd8W_qKamLk39NY8hgFBo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
